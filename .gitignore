@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+.vercel
+*.log
+.DS_Store
+
+# Review screenshots (not part of the site)
+review-screenshots
+
+# Private notes (not for the public repository)
+PROJECT_NOTES.md
