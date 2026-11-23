@@ -154,10 +154,16 @@ Set `photo` to `null` to hide the photo area.
 
 ### Add your resume
 
-1. Put the PDF in `public/`, named `resume.pdf`.
-2. In `src/data/profile.js` set `resumeUrl: "/resume.pdf"`.
+The resume on the site is a **public version**: anyone can download it. Keep private details such as your phone number out of it, and keep your full resume outside the project folder. Everything inside `public/` is published with the site.
 
-A "Resume" link then appears in the header and in the Contact section.
+1. Put the PDF in `public/files/`, named `Saiful-Islam-Resume.pdf`.
+2. In `src/data/profile.js`, `resumeUrl` is set to `"/files/Saiful-Islam-Resume.pdf"`.
+
+The resume then appears in three places: a **Download Resume** button in the Hero, a **Resume** link in the menu (desktop and mobile), and a **Resume** link in the Contact section. All three download the PDF; the visitor stays on the portfolio.
+
+**To replace the resume later:** export the new public version, give it exactly the same name, `Saiful-Islam-Resume.pdf`, and overwrite the file in `public/files/`. No code change is needed. Open the PDF once first and check it shows no phone number.
+
+If you use a different file name, update `resumeUrl` to match. Set `resumeUrl` to `null` to hide all three resume links.
 
 ### Add LinkedIn
 

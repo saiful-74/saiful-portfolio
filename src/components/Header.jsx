@@ -56,9 +56,12 @@ export default function Header() {
             {profile.resumeUrl && (
               <a
                 href={profile.resumeUrl}
+                download={profile.resumeUrl.split("/").pop()}
+                type="application/pdf"
                 className="rounded-full border border-line px-4 py-1.5 text-sm text-ink transition-colors hover:border-accent hover:text-accent-text"
               >
                 Resume
+                <span className="sr-only"> (PDF download)</span>
               </a>
             )}
           </nav>
@@ -103,10 +106,13 @@ export default function Header() {
               <li>
                 <a
                   href={profile.resumeUrl}
+                  download={profile.resumeUrl.split("/").pop()}
+                  type="application/pdf"
                   className="block py-3 font-display text-lg text-accent-text"
                   onClick={() => setOpen(false)}
                 >
                   Resume
+                  <span className="sr-only"> (PDF download)</span>
                 </a>
               </li>
             )}

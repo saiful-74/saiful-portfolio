@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download, Mail } from "lucide-react";
 import { profile } from "../data/profile";
 
 /*
@@ -47,6 +47,23 @@ export default function Hero() {
               View projects
               <ArrowDown size={16} aria-hidden="true" />
             </a>
+
+            {/*
+              Resume button. Shown only when resumeUrl is set in profile.js.
+              "download" saves the PDF instead of opening it, so visitors stay on the portfolio.
+            */}
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                download={profile.resumeUrl.split("/").pop()}
+                type="application/pdf"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-ink transition-[translate,border-color,color] hover:-translate-y-0.5 hover:border-accent hover:text-accent-text"
+              >
+                <Download size={16} aria-hidden="true" />
+                Download Resume
+                <span className="sr-only"> (PDF)</span>
+              </a>
+            )}
 
             {/* Profile links. LinkedIn shows only when set in profile.js */}
             <a

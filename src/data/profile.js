@@ -23,8 +23,9 @@ export const profile = {
   // TODO (Saiful): add your LinkedIn URL when the profile is ready, e.g. "https://www.linkedin.com/in/..."
   linkedin: null,
 
-  // TODO (Saiful): put resume.pdf in the public/ folder, then set this to "/resume.pdf"
-  resumeUrl: null,
+  // Public resume (the version without a phone number), in public/files/.
+  // Visitors download it from the Hero, the menu and the Contact section. Set to null to hide all three.
+  resumeUrl: "/files/Saiful-Islam-Resume.pdf",
 
   // Profile photo in the hero. Set to null to hide the photo area.
   photo: "/images/saiful-portrait.webp",

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { profile } from "../data/profile";
 import Reveal from "./Reveal";
 import Section from "./Section";
@@ -42,7 +42,10 @@ export default function Contact() {
           )}
           {profile.resumeUrl && (
             <li>
-              <ContactLink href={profile.resumeUrl}>Resume</ContactLink>
+              <ContactLink href={profile.resumeUrl} download>
+                Resume
+                <span className="sr-only"> (PDF download)</span>
+              </ContactLink>
             </li>
           )}
         </ul>
@@ -51,17 +54,25 @@ export default function Contact() {
   );
 }
 
-// External link that opens in a new tab
-function ContactLink({ href, children }) {
+/*
+  Contact link.
+  - Normal: opens the page in a new tab (arrow icon).
+  - With "download": saves the file instead and keeps the visitor here (download icon).
+*/
+function ContactLink({ href, download = false, children }) {
+  const linkProps = download
+    ? { download: href.split("/").pop(), type: "application/pdf" }
+    : { target: "_blank", rel: "noreferrer" };
+  const Icon = download ? Download : ArrowUpRight;
+
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer"
+      {...linkProps}
       className="inline-flex items-center gap-1.5 text-base font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
     >
       {children}
-      <ArrowUpRight size={16} aria-hidden="true" />
+      <Icon size={16} aria-hidden="true" />
     </a>
   );
 }
