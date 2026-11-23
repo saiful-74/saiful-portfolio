@@ -145,9 +145,12 @@ Open `src/data/profile.js`. `role` is the small line above the name, `intro` is 
 
 ### Add your photo
 
-1. Create the folder `public/images/` if it does not exist.
-2. Put the image there, for example `public/images/saiful.jpg`. A portrait shape (4:5) works best.
-3. In `src/data/profile.js` set `photo: "/images/saiful.jpg"`.
+1. Put the image in `public/images/`, for example `public/images/saiful-portrait.webp`.
+2. In `src/data/profile.js` set `photo: "/images/saiful-portrait.webp"`.
+3. The photo is shown in a 4:5 portrait frame with rounded corners: on the right on desktop, and centered under the text on tablets and phones. A photo of another shape is cropped to fit.
+4. If your face is cut off, change `photoPosition` in `src/data/profile.js`. It takes two values, horizontal then vertical: `"50% 50%"` keeps the center, `"50% 20%"` keeps more of the top.
+
+Set `photo` to `null` to hide the photo area.
 
 ### Add your resume
 
@@ -162,15 +165,19 @@ In `src/data/profile.js` set `linkedin` to your full profile URL. The link appea
 
 ### Add a project screenshot
 
-1. Put the image in `public/images/`, for example `public/images/localcb.png`. A wide shape (16:10) works best.
+1. Put the image in `public/images/`, for example `public/images/my-project.webp`.
 2. In `src/data/projects.js`, in that project, set:
 
 ```js
-screenshot: "/images/localcb.png",
-screenshotAlt: "LocalChefBazaar home page showing the meal list",
+screenshot: "/images/my-project.webp",
+screenshotWidth: 1900,
+screenshotHeight: 824,
+screenshotAlt: "My Project home page, showing the navigation bar and the main banner",
 ```
 
-`screenshotAlt` is a short description of the picture for people who cannot see it.
+- The whole screenshot is shown in its own shape. Nothing is cropped, so wide and tall screenshots both work.
+- `screenshotWidth` and `screenshotHeight` are the image's real size in pixels. They let the browser reserve the right space before the image loads, so the page does not jump. In Windows, right-click the file, then **Properties → Details** shows the size.
+- `screenshotAlt` is a short description of what the picture shows, for people who cannot see it.
 
 Until a project has a screenshot, the site shows a plain panel in its place, with the words "Screenshot coming soon". The panel disappears by itself when you set `screenshot`.
 
@@ -180,10 +187,12 @@ Large images make the page slow, especially on phones.
 
 | Image | Suggested size | Suggested file size |
 | --- | --- | --- |
-| Photo | about 800 × 1000 pixels | under 200 KB |
-| Project screenshot | about 1280 × 800 pixels | under 300 KB |
+| Photo | 800 × 1000 pixels (4:5) is ideal; at least 640 pixels high | under 200 KB |
+| Project screenshot | 1600 to 1900 pixels wide, any shape | under 300 KB |
 
-JPG or WebP suits photos. PNG or WebP suits screenshots. Resize and compress an image before adding it.
+WebP is the best format for both. JPG also works for photos. Resize and compress an image before adding it, and keep an untouched copy somewhere else.
+
+Before you add a screenshot, check it for private data: other people's names, emails or orders, and any login details. Crop away browser bars and scrollbars.
 
 ### Add or edit a project
 

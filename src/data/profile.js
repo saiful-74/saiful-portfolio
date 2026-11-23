@@ -26,8 +26,11 @@ export const profile = {
   // TODO (Saiful): put resume.pdf in the public/ folder, then set this to "/resume.pdf"
   resumeUrl: null,
 
-  // TODO (Saiful): put your photo in public/images/, then set this to "/images/your-photo.jpg"
-  photo: null,
+  // Profile photo in the hero. Set to null to hide the photo area.
+  photo: "/images/saiful-portrait.webp",
+  // Which part of the photo stays visible when it is cropped to the 4:5 frame.
+  // "horizontal vertical", for example "50% 50%" (centre) or "50% 20%" (keep the top).
+  photoPosition: "50% 50%",
 
   // Three short facts shown in the strip under the hero
   facts: [

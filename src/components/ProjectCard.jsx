@@ -23,13 +23,19 @@ export default function ProjectCard({ project, flip = false }) {
         className={`lg:sticky lg:top-24 lg:col-span-7 ${flip ? "lg:order-2" : ""}`}
       >
         {project.screenshot ? (
+          /*
+            The whole screenshot is shown in its own shape: nothing is cropped.
+            width/height come from projects.js so the browser reserves the right
+            space before the image loads (no jumping layout).
+          */
           <img
             src={project.screenshot}
             alt={project.screenshotAlt}
-            width="1280"
-            height="800"
+            width={project.screenshotWidth ?? 1600}
+            height={project.screenshotHeight ?? 1000}
             loading="lazy"
-            className="aspect-[16/10] w-full rounded-xl border border-line object-cover"
+            decoding="async"
+            className="h-auto w-full rounded-xl border border-line bg-surface object-contain"
           />
         ) : (
           <ProjectPreview number={project.number} />

@@ -6,7 +6,7 @@ import { profile } from "../data/profile";
   First screen of the site: name, role, short intro, main button and links.
   Layout:
   - Desktop: text on the left (8 of 12 columns), photo on the right (4 columns).
-  - Mobile: one column, photo below the text, centered on phones.
+  - Tablet and mobile: one column, photo centered below the text.
   The photo area appears only when a photo is set in profile.js.
 */
 export default function Hero() {
@@ -92,7 +92,8 @@ export default function Hero() {
               alt={`Portrait of ${profile.firstName} ${profile.lastName}`}
               width="480"
               height="600"
-              className="aspect-[4/5] w-full max-w-[14rem] rounded-xl border border-line object-cover max-sm:mx-auto lg:ml-auto lg:max-w-xs"
+              style={{ objectPosition: profile.photoPosition ?? "50% 50%" }}
+              className="aspect-[4/5] w-full max-w-[14rem] rounded-xl border border-line object-cover max-lg:mx-auto lg:ml-auto lg:max-w-xs"
             />
           </div>
         )}

@@ -7,9 +7,12 @@
   Fill a field and the label disappears.
 
   How to add a screenshot:
-    1. Put the image in public/images/   (example: public/images/localcb.png)
-    2. Set screenshot to "/images/localcb.png"
-    3. Set screenshotAlt to one sentence that describes the image
+    1. Put the image in public/images/   (example: public/images/my-project.webp)
+    2. Set screenshot to "/images/my-project.webp"
+    3. Set screenshotWidth and screenshotHeight to the image's real size in pixels.
+       The whole image is shown in its own shape (nothing is cropped), and these
+       two numbers let the browser reserve the right space before it loads.
+    4. Set screenshotAlt to one sentence that describes what the image shows
 
   Links:
     live          -> the deployed site
@@ -54,9 +57,11 @@ export const projects = [
       "Vercel",
     ],
 
-    // TODO (Saiful): add a screenshot (see "How to add a screenshot" above)
-    screenshot: null,
-    screenshotAlt: "",
+    screenshot: "/images/localchefbazaar.webp",
+    screenshotWidth: 1900,
+    screenshotHeight: 824,
+    screenshotAlt:
+      "LocalChefBazaar home page, showing the navigation bar and the banner Fresh Ingredients, Fast Delivery with Order Now and Watch Video buttons",
 
     links: {
       live: "https://ui-local-cb.vercel.app",
@@ -97,9 +102,11 @@ export const projects = [
       "Vercel",
     ],
 
-    // TODO (Saiful): add a screenshot
-    screenshot: null,
-    screenshotAlt: "",
+    screenshot: "/images/plateshare.webp",
+    screenshotWidth: 1902,
+    screenshotHeight: 715,
+    screenshotAlt:
+      "PlateShare home page, showing the navigation bar and the banner Reduce Waste, Help Communities with View All Foods and Search Food buttons",
 
     links: {
       live: "https://ui-plate-share.vercel.app",
