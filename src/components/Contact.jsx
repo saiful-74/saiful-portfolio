@@ -1,6 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
 import { profile } from "../data/profile";
-import Pending from "./Pending";
 import Reveal from "./Reveal";
 import Section from "./Section";
 
@@ -23,12 +22,12 @@ export default function Contact() {
         {/* Email: opens the visitor's email app */}
         <a
           href={`mailto:${profile.email}`}
-          className="inline-block font-display text-[clamp(1.25rem,5.5vw,3.5rem)] leading-tight font-semibold tracking-[-0.02em] [overflow-wrap:anywhere] text-ink underline decoration-accent decoration-2 underline-offset-[0.25em] transition-colors hover:text-accent"
+          className="inline-block font-display text-[clamp(1.25rem,5.5vw,3.5rem)] leading-tight font-semibold tracking-[-0.02em] [overflow-wrap:anywhere] text-ink underline decoration-accent decoration-2 underline-offset-[0.25em] transition-colors hover:text-accent-text"
         >
           {profile.email}
         </a>
 
-        {/* Other links. A missing link shows a label instead of a fake link. */}
+        {/* Other links. LinkedIn and Resume appear only when set in profile.js. */}
         <ul className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <li>
             <ContactLink href={profile.github.url}>
@@ -36,20 +35,16 @@ export default function Contact() {
               <span className="sr-only"> ({profile.github.username})</span>
             </ContactLink>
           </li>
-          <li>
-            {profile.linkedin ? (
+          {profile.linkedin && (
+            <li>
               <ContactLink href={profile.linkedin}>LinkedIn</ContactLink>
-            ) : (
-              <Pending note="LinkedIn" />
-            )}
-          </li>
-          <li>
-            {profile.resumeUrl ? (
+            </li>
+          )}
+          {profile.resumeUrl && (
+            <li>
               <ContactLink href={profile.resumeUrl}>Resume</ContactLink>
-            ) : (
-              <Pending note="Resume" />
-            )}
-          </li>
+            </li>
+          )}
         </ul>
       </Reveal>
     </Section>
@@ -63,7 +58,7 @@ function ContactLink({ href, children }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-1.5 text-base font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+      className="inline-flex items-center gap-1.5 text-base font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
     >
       {children}
       <ArrowUpRight size={16} aria-hidden="true" />

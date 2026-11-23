@@ -25,7 +25,7 @@ export const projects = [
   {
     id: "localcb",
     number: "01",
-    title: "LOCALCB",
+    title: "LocalChefBazaar (LOCALCB)",
     type: "Solo project",
     status: "Completed",
 

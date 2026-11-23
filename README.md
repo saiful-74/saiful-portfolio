@@ -8,9 +8,10 @@ Sections, top to bottom: Hero, Projects, About, Skills, Research, Education, Con
 
 - Works on phones, tablets and desktops (checked from 320px to 1440px wide)
 - All text and links are kept in simple data files, separate from the layout code
-- Missing information shows a clear "To be added" label instead of made-up content
+- Missing information is left out or clearly labeled, never replaced with made-up content
 - A project can be hidden and restored with one value, without deleting its data
 - On desktop, each project image stays in view while its description scrolls
+- Dark theme by default, with a light theme the visitor can switch to (the choice is remembered)
 - Keyboard friendly: skip link, visible focus ring, Escape closes the mobile menu
 - Animations switch off for visitors who prefer reduced motion
 - No backend, no database and no contact form
@@ -73,9 +74,10 @@ src/
     education.js        University details
   components/           Layout of each part of the page
     Header.jsx          Top bar and mobile menu
+    ThemeToggle.jsx     Sun/Moon button that switches between dark and light theme
     Hero.jsx            Name, role, intro, photo
     Projects.jsx        List of project cards
-    ProjectCard.jsx     One project card
+    ProjectCard.jsx     One project card, including the panel shown when it has no screenshot
     About.jsx           About section
     Skills.jsx          Skills section
     Research.jsx        Research section
@@ -84,8 +86,7 @@ src/
     Footer.jsx          Bottom bar
     Section.jsx         Shared spacing and heading for every section
     Reveal.jsx          Fade-in when a block scrolls into view
-    Placeholder.jsx     Large dashed box for a missing image
-    Pending.jsx         Small "To be added" label
+    Pending.jsx         Small "To be added" label for a missing project detail
 ```
 
 Created on your computer and not uploaded to GitHub (listed in `.gitignore`):
@@ -103,7 +104,16 @@ Two pieces of text are not in `src/data/`: the browser tab title and description
 
 ## How placeholders work
 
-In the data files, a value of `null` (or an empty list `[]`) means "not supplied yet". The site then shows a dashed **"To be added"** label, or leaves that link out. Nothing fake is ever shown.
+In the data files, a value of `null` (or an empty list `[]`) means "not supplied yet". Nothing fake is ever shown. What visitors see depends on the item:
+
+| Missing item | What the site shows |
+| --- | --- |
+| Photo, LinkedIn, resume | Nothing. That part is left out until you add it. |
+| Research summary, degree name, education years | Nothing. That line is left out until you add it. |
+| Project screenshot | A plain panel with the words "Screenshot coming soon". |
+| A project's text details or links (status, problem, contribution, features, tech stack, live link, source link) | A small dashed **"To be added"** label. |
+
+Visitors never see file names or setup instructions. Because project text details do show a "To be added" label, fill them in before you show a project, or keep the project hidden (see "Hide or restore a project").
 
 To fill a text value, replace `null` with real text in quotes:
 
@@ -161,6 +171,8 @@ screenshotAlt: "LocalChefBazaar home page showing the meal list",
 ```
 
 `screenshotAlt` is a short description of the picture for people who cannot see it.
+
+Until a project has a screenshot, the site shows a plain panel in its place, with the words "Screenshot coming soon". The panel disappears by itself when you set `screenshot`.
 
 ### Image size guidance
 
@@ -282,9 +294,40 @@ Open `index.html` and edit the `<title>` line and the `description` line below i
 
 ### Change colors or fonts
 
-Open `src/index.css`. The `@theme` block at the top holds all six colors and three fonts. Change a color there and the whole site updates.
+Open `src/index.css`. The `@theme` block at the top holds the dark theme colors and the three fonts. The block below it, `:root[data-theme="light"]`, holds the light theme colors. Change a color there and the whole site updates. See "Dark and light theme" below before you change a color.
 
 To change a font, do two things: change the font name in the `@theme` block, and change the Google Fonts link in `index.html` so that the new font is loaded.
+
+## Dark and light theme
+
+The site has a dark theme and a light theme. A Sun/Moon button in the header switches between them.
+
+How it behaves:
+
+- **First visit:** always the dark theme, whatever the visitor's computer is set to.
+- **After a visitor clicks the button:** their choice is saved in their browser (`localStorage`, key `theme`) and is used on every later visit.
+- **The computer's own dark/light setting** never changes a saved choice.
+- **No flash:** a small script at the top of `index.html` applies a saved light choice before the page is drawn.
+- **Reduced motion:** switching fades the colors for a quarter of a second, unless the visitor has turned on "reduce motion" in their system settings.
+- **JavaScript turned off:** the dark theme is shown.
+
+Where the colors live, in `src/index.css`:
+
+| Color name | What it is used for |
+| --- | --- |
+| `bg` | Page background |
+| `surface` | Cards and raised areas |
+| `chip` | Small tags, such as the tech stack |
+| `line` | Borders and dividers |
+| `ink` | Main text |
+| `muted` | Secondary text |
+| `accent` | The violet, used for shapes: the main button, dots, underlines, focus ring |
+| `accent-text` | The violet when it is used as text |
+| `on-accent` | Text that sits on top of the violet, such as the button label |
+
+The light theme uses a darker violet for `accent-text`, because the normal violet is too pale to read as text on white. If you change any color, check that text stays readable (WCAG AA contrast: at least 4.5 to 1 for normal text). A free online "contrast checker" can measure it.
+
+Two places outside `src/index.css` repeat the page background color, for the color of the browser bar on phones. Update them too if you change `bg`: `index.html` (the `theme-color` line and the small theme script) and `src/components/ThemeToggle.jsx` (`BROWSER_BAR_COLOR`).
 
 ## Deploy to Vercel
 
@@ -296,7 +339,7 @@ Please note: a public GitHub repository shows all the code and text in this proj
 
 1. Run `npm run build`. It must finish without errors.
 2. Run `npm run preview` and look through the whole page once.
-3. Decide if you are happy for visitors to see the remaining "To be added" labels.
+3. Check that no "To be added" label is visible on the page. If one is, fill in that detail or hide that project.
 
 ### Step 1 — Set up Git (first time only)
 
@@ -401,6 +444,7 @@ Checked in November 2026 in Microsoft Edge (Chromium) on a production build:
 - Full keyboard use: visible focus ring on every link and button, skip link, Escape closes the mobile menu
 - Animations switch off for users who prefer reduced motion
 - No console errors, no failed requests, all external links respond
+- Dark and light theme: dark on first visit, saved choice restored after refresh, no flash of the wrong theme, WCAG AA text contrast and 0 accessibility-scan problems in both themes
 
 Not yet checked: Firefox, Safari, a real phone, and a screen reader. Test these before sharing the link widely.
 

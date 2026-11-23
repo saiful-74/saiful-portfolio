@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { navLinks, profile } from "../data/profile";
+import ThemeToggle from "./ThemeToggle";
 
 /*
   Header
@@ -34,43 +35,49 @@ export default function Header() {
           onClick={() => setOpen(false)}
         >
           {profile.firstName} {profile.lastName}
-          <span className="text-accent">.</span>
+          <span className="text-accent-text">.</span>
         </a>
 
-        {/* Desktop navigation */}
-        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[0.9375rem] font-medium text-ink/85 transition-colors hover:text-accent"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Right side: menu links (desktop), theme button, menu button (mobile) */}
+        <div className="flex items-center gap-1 md:gap-5">
+          {/* Desktop navigation */}
+          <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-[0.9375rem] font-medium text-ink/85 transition-colors hover:text-accent-text"
+              >
+                {link.label}
+              </a>
+            ))}
 
-          {/* Resume link appears only when a real file is set in profile.js */}
-          {profile.resumeUrl && (
-            <a
-              href={profile.resumeUrl}
-              className="rounded-full border border-line px-4 py-1.5 text-sm text-ink transition-colors hover:border-accent hover:text-accent"
-            >
-              Resume
-            </a>
-          )}
-        </nav>
+            {/* Resume link appears only when a real file is set in profile.js */}
+            {profile.resumeUrl && (
+              <a
+                href={profile.resumeUrl}
+                className="rounded-full border border-line px-4 py-1.5 text-sm text-ink transition-colors hover:border-accent hover:text-accent-text"
+              >
+                Resume
+              </a>
+            )}
+          </nav>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-ink md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
-        </button>
+          {/* Sun/Moon button: switches between dark and light theme */}
+          <ThemeToggle className="md:-mr-2" />
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-ink md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile navigation */}
@@ -96,7 +103,7 @@ export default function Header() {
               <li>
                 <a
                   href={profile.resumeUrl}
-                  className="block py-3 font-display text-lg text-accent"
+                  className="block py-3 font-display text-lg text-accent-text"
                   onClick={() => setOpen(false)}
                 >
                   Resume

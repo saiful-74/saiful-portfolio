@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +8,27 @@
       name="description"
       content="Portfolio of Saiful Islam, a Computer Science and Engineering student who builds web applications and is learning AI/ML."
     />
-    <meta name="theme-color" content="#0E0E11" />
+    <meta name="theme-color" content="#0e0e11" />
+
+    <!--
+      Theme: dark is the default. If the visitor chose the light theme on an earlier
+      visit, apply it here, before the page is drawn, so the dark theme never flashes.
+      The Sun/Moon button (src/components/ThemeToggle.jsx) saves that choice.
+    -->
+    <script>
+      try {
+        if (localStorage.getItem("theme") === "light") {
+          document.documentElement.dataset.theme = "light";
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#fafaf8");
+        }
+      } catch (error) {
+        // Storage is blocked (for example in private browsing): stay on the dark theme.
+      }
+    </script>
+    <!-- Icons: SVG for modern browsers, PNG as fallback, and one for the iPhone home screen -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (small labels) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,6 +39,20 @@
     />
   </head>
   <body>
+    <!-- Shown only when JavaScript is turned off, so the page is never completely empty -->
+    <noscript>
+      <main style="max-width: 40rem; margin: 0 auto; padding: 4rem 1.25rem; line-height: 1.6">
+        <h1 style="font-size: 2.5rem; line-height: 1.1; margin: 0 0 0.75rem">Saiful Islam</h1>
+        <p style="margin: 0 0 1.5rem">CSE Student | Aspiring Software Developer &amp; AI/ML Engineer</p>
+        <p style="margin: 0 0 1.5rem">This portfolio needs JavaScript to show its full content.</p>
+        <p style="margin: 0">
+          <a href="https://github.com/saiful-74" style="color: var(--color-accent-text); text-decoration: underline">
+            GitHub profile: github.com/saiful-74
+          </a>
+        </p>
+      </main>
+    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

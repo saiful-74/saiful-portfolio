@@ -1,6 +1,5 @@
 import { ArrowUpRight, TriangleAlert } from "lucide-react";
 import Pending from "./Pending";
-import Placeholder from "./Placeholder";
 
 /*
   ProjectCard
@@ -33,17 +32,13 @@ export default function ProjectCard({ project, flip = false }) {
             className="aspect-[16/10] w-full rounded-xl border border-line object-cover"
           />
         ) : (
-          <Placeholder
-            title="Project screenshot"
-            note="Add the image path in src/data/projects.js"
-            className="aspect-[16/10] w-full"
-          />
+          <ProjectPreview number={project.number} />
         )}
       </div>
 
       {/* Text */}
       <div className="lg:col-span-5">
-        <p className="font-mono text-sm text-accent">{project.number}</p>
+        <p className="font-mono text-sm text-accent-text">{project.number}</p>
 
         <h3 className="mt-3 font-display text-2xl leading-tight font-semibold tracking-[-0.02em] text-ink md:text-3xl">
           {project.title}
@@ -79,7 +74,7 @@ export default function ProjectCard({ project, flip = false }) {
 
           <Detail term="Key features">
             {project.features.length > 0 ? (
-              <ul className="list-disc space-y-1 pl-5 marker:text-accent">
+              <ul className="list-disc space-y-1 pl-5 marker:text-accent-text">
                 {project.features.map((feature) => (
                   <li key={feature}>{feature}</li>
                 ))}
@@ -95,7 +90,7 @@ export default function ProjectCard({ project, flip = false }) {
                 {project.stack.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-md bg-surface px-2.5 py-1 font-mono text-xs text-ink"
+                    className="rounded-md bg-chip px-2.5 py-1 font-mono text-xs text-ink"
                   >
                     {tech}
                   </li>
@@ -140,7 +135,7 @@ export default function ProjectCard({ project, flip = false }) {
           >
             <TriangleAlert
               size={18}
-              className="mt-0.5 shrink-0 text-accent"
+              className="mt-0.5 shrink-0 text-accent-text"
               aria-hidden="true"
             />
             <span>
@@ -151,6 +146,30 @@ export default function ProjectCard({ project, flip = false }) {
         )}
       </div>
     </article>
+  );
+}
+
+/*
+  Shown in place of a screenshot until one is added in projects.js.
+  It is a plain panel with a short label, so visitors never see setup instructions.
+  The project name is not repeated here because it is the heading right beside it.
+  The large faded number is decoration only. It is drawn with CSS (a ::before
+  element that reads data-number), so it is not real page text and screen readers skip it.
+*/
+function ProjectPreview({ number }) {
+  return (
+    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-line bg-surface">
+      {/* Label in the top-left corner, number in the bottom-right, so they never touch */}
+      <p className="label absolute top-5 left-5 md:top-7 md:left-7">
+        Screenshot coming soon
+      </p>
+
+      <span
+        aria-hidden="true"
+        data-number={number}
+        className="pointer-events-none absolute -right-2 -bottom-8 font-display text-[9rem] leading-none font-bold text-line select-none before:content-[attr(data-number)] md:-right-3 md:-bottom-10 md:text-[15rem]"
+      />
+    </div>
   );
 }
 
@@ -175,7 +194,7 @@ function ProjectLink({ href, project, children }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+      className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
     >
       {children}
       <span className="sr-only"> of {project}</span>

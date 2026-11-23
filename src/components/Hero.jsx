@@ -1,6 +1,5 @@
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 import { profile } from "../data/profile";
-import Placeholder from "./Placeholder";
 
 /*
   Hero
@@ -8,6 +7,7 @@ import Placeholder from "./Placeholder";
   Layout:
   - Desktop: text on the left (8 of 12 columns), photo on the right (4 columns).
   - Mobile: one column, photo below the text, centered on phones.
+  The photo area appears only when a photo is set in profile.js.
 */
 export default function Hero() {
   return (
@@ -21,10 +21,11 @@ export default function Hero() {
             className="fade-up mt-6 font-display text-[clamp(3.25rem,17vw,9rem)] leading-[0.92] font-bold tracking-[-0.04em] text-ink"
             style={{ animationDelay: "80ms" }}
           >
-            {profile.firstName}
+            {/* The space keeps the two names apart for screen readers and search engines */}
+            {profile.firstName}{" "}
             <br />
             {profile.lastName}
-            <span className="text-accent">.</span>
+            <span className="text-accent-text">.</span>
           </h1>
 
           <p
@@ -41,7 +42,7 @@ export default function Hero() {
             {/* Main button */}
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-bg transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-transform hover:-translate-y-0.5"
             >
               View projects
               <ArrowDown size={16} aria-hidden="true" />
@@ -52,7 +53,7 @@ export default function Hero() {
               href={profile.github.url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+              className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
             >
               GitHub
               <ArrowUpRight size={16} aria-hidden="true" />
@@ -63,7 +64,7 @@ export default function Hero() {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+                className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
               >
                 LinkedIn
                 <ArrowUpRight size={16} aria-hidden="true" />
@@ -72,7 +73,7 @@ export default function Hero() {
 
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+              className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-ink underline decoration-line underline-offset-8 transition-colors hover:text-accent-text hover:decoration-accent"
             >
               <Mail size={16} aria-hidden="true" />
               Email
@@ -80,12 +81,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: photo, or a labeled placeholder until a photo is supplied */}
-        <div
-          className="fade-up lg:col-span-4"
-          style={{ animationDelay: "320ms" }}
-        >
-          {profile.photo ? (
+        {/* Right: photo. Shown only when a photo is set in profile.js. */}
+        {profile.photo && (
+          <div
+            className="fade-up lg:col-span-4"
+            style={{ animationDelay: "320ms" }}
+          >
             <img
               src={profile.photo}
               alt={`Portrait of ${profile.firstName} ${profile.lastName}`}
@@ -93,14 +94,8 @@ export default function Hero() {
               height="600"
               className="aspect-[4/5] w-full max-w-[14rem] rounded-xl border border-line object-cover max-sm:mx-auto lg:ml-auto lg:max-w-xs"
             />
-          ) : (
-            <Placeholder
-              title="Photo"
-              note="Optional. Set the photo path in src/data/profile.js"
-              className="aspect-[4/5] w-full max-w-[14rem] max-sm:mx-auto lg:ml-auto lg:max-w-xs"
-            />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Fact strip: three short facts in a row (stacked on mobile) */}

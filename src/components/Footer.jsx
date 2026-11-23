@@ -20,7 +20,7 @@ export default function Footer() {
 
         <a
           href="#top"
-          className="inline-flex items-center gap-1.5 py-1 font-medium text-ink transition-colors hover:text-accent"
+          className="inline-flex items-center gap-1.5 py-1 font-medium text-ink transition-colors hover:text-accent-text"
         >
           Back to top
           <ArrowUp size={16} aria-hidden="true" />

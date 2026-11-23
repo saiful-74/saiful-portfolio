@@ -10,16 +10,58 @@
   Change a value here and the whole site updates.
 */
 @theme {
+  /* DARK THEME (the default). These are the approved dark colors. */
   --color-bg: #0e0e11; /* page background (charcoal, not pure black) */
   --color-surface: #16161b; /* cards and raised areas */
+  --color-chip: #16161b; /* small tags, such as the tech stack */
   --color-line: #26262e; /* borders and dividers */
   --color-ink: #ededf0; /* main text */
   --color-muted: #9a9aa6; /* secondary text */
-  --color-accent: #8b7cff; /* the single accent color (violet) */
+  --color-accent: #8b7cff; /* the single accent color (violet), used for shapes: button, dots, underlines, focus ring */
+  --color-accent-text: #8b7cff; /* the same violet when it is used as text */
+  --color-on-accent: #0e0e11; /* text that sits on top of a violet shape */
 
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/*
+  LIGHT THEME
+  Used when <html> has data-theme="light". That attribute is set by the small
+  script in index.html (saved choice) and by the Sun/Moon button (ThemeToggle.jsx).
+
+  Only the colors change. The violet accent stays the same for shapes.
+  Violet TEXT uses a darker shade here, because the normal violet is too pale
+  to read on a white background (accessibility rule: WCAG AA contrast).
+*/
+:root {
+  color-scheme: dark; /* tells the browser to draw scrollbars etc. in dark style */
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #fafaf8; /* warm off-white page background */
+  --color-surface: #ffffff; /* white cards */
+  --color-chip: #eeeee9; /* soft grey tags */
+  --color-line: #e3e3de; /* light borders */
+  --color-ink: #16161b; /* near-black text */
+  --color-muted: #5c5c66; /* grey secondary text */
+  --color-accent-text: #5b47e0; /* darker violet for readable text */
+  /* --color-accent and --color-on-accent stay the same as in the dark theme */
+}
+
+/*
+  Soft color fade when the visitor switches theme.
+  ThemeToggle.jsx adds this class for a moment, then removes it.
+*/
+:root.theme-switching *,
+:root.theme-switching *::before {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease !important;
 }
 
 /* GLOBAL STYLES */
@@ -39,7 +81,7 @@ body {
 
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-on-accent);
 }
 
 /* Clear keyboard focus ring on every link and button */
@@ -125,6 +167,12 @@ body {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  /* No color fade when switching theme */
+  :root.theme-switching *,
+  :root.theme-switching *::before {
+    transition: none !important;
   }
 
   * {

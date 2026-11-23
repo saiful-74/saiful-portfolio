@@ -1,5 +1,4 @@
 import { research } from "../data/research";
-import Pending from "./Pending";
 import Reveal from "./Reveal";
 import Section from "./Section";
 
@@ -38,13 +37,12 @@ export default function Research() {
             {research.title}
           </h3>
 
-          <div className="mt-6 max-w-[62ch] text-lg leading-relaxed text-muted">
-            {research.summary ? (
-              <p>{research.summary}</p>
-            ) : (
-              <Pending note="Research summary" />
-            )}
-          </div>
+          {/* Shown only when a summary is set in research.js */}
+          {research.summary && (
+            <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-muted">
+              {research.summary}
+            </p>
+          )}
         </Reveal>
 
         {/* Interests */}
